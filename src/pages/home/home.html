@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+ <canvas-draw *ngIf="canvasShow"></canvas-draw>
+
+  <button ion-button (click)="startRecording()">Start</button>
+  <button ion-button (click)="selectVideo()">Select</button>
+
+<!--
+  <video #myvideo height="300px" width="300px" controls></video>
+-->
+
+  <vg-player (onPlayerReady)="onPlayerReady($event)">
+
+    <vg-overlay-play></vg-overlay-play>
+    <vg-buffering></vg-buffering>
+
+    <vg-scrub-bar>
+      <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+      <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+    </vg-scrub-bar>
+
+    <vg-controls>
+      <vg-play-pause></vg-play-pause>
+      <vg-playback-button></vg-playback-button>
+
+      <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+
+      <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
+      
+      <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+      <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+
+      <vg-track-selector></vg-track-selector>
+      <vg-mute></vg-mute>
+      <vg-volume></vg-volume>
+
+      <vg-fullscreen></vg-fullscreen>
+    </vg-controls>
+
+    <video [vgMedia]="media" #media id="singleVideo" preload="auto">
+        <!-- REMOVE this prior to live device testing -->
+    </video>
+  </vg-player>
+
+
+  <button ion-button (click)="saveChanges()">Save changes</button>
+  <button ion-button (click)="hideCanvas()">Cancel</button>
+
+
+</ion-content>
