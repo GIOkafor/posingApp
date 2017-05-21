@@ -1,9 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, Events } from 'ionic-angular';
+import { NavController, Events, ModalController } from 'ionic-angular';
 import { MediaCapture } from '@ionic-native/media-capture';
 import { Camera } from '@ionic-native/camera';
 import { VgAPI } from 'videogular2/core';
-
+import {AddReviewPage} from '../add-review-page/add-review-page';
+import {Reviews} from '../../providers/reviews';
 
 @Component({
   selector: 'page-home',
@@ -17,9 +18,53 @@ export class HomePage {
   api: VgAPI;
   //toggle canvas display
   canvasShow:boolean = false;
+  //reviews stuff
+  reviews: any;
 
-  constructor(public navCtrl: NavController, private mediaCapture: MediaCapture, private camera: Camera, public events: Events) {
+  constructor(public navCtrl: NavController, private mediaCapture: MediaCapture, private camera: Camera, public events: Events, public reviewService: Reviews, public modalCtrl: ModalController) {
     
+  }
+
+//reviews code start
+  ionViewDidLoad(){
+
+    console.log("Reviews View loaded"); 
+
+    this.reviewService.getReviews().then((data) => {
+      console.log(data);
+      this.reviews = data;
+    });
+  }
+
+  addReview(){
+    //create new modal with AddReviewPage layout
+    let modal = this.modalCtrl.create(AddReviewPage);
+
+    //upon dismissal, if review field is filled out add review to list
+    //of reviews and call createReview method
+    modal.onDidDismiss(review => {
+      if(review){
+        this.reviews.push(review);
+        this.reviewService.createReview(review);
+      }
+    });
+
+    modal.present();
+
+  }
+
+  deleteReview(review){
+
+    //remove locally
+      let index = this.reviews.indexOf(review);
+
+      //check if index is valid
+      if(index > -1){
+        this.reviews.splice(index, 1);
+      }
+
+    //remove from database
+    this.reviewService.deleteReview(review._id);
   }
 
   startRecording(){

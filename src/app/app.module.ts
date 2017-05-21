@@ -1,5 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MediaCapture } from '@ionic-native/media-capture';
 import { Camera } from '@ionic-native/camera';
@@ -20,6 +21,9 @@ import {VgBufferingModule} from 'videogular2/buffering';
 
 import { CanvasDraw } from '../components/canvas-draw/canvas-draw';
 
+import { AddReviewPage } from '../pages/add-review-page/add-review-page';
+import { Reviews } from '../providers/reviews';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -27,10 +31,12 @@ import { CanvasDraw } from '../components/canvas-draw/canvas-draw';
     ContactPage,
     HomePage,
     TabsPage,
-    CanvasDraw
+    CanvasDraw,
+    AddReviewPage
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     VgCoreModule,
     VgControlsModule,
     VgOverlayPlayModule,
@@ -43,14 +49,16 @@ import { CanvasDraw } from '../components/canvas-draw/canvas-draw';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    AddReviewPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     MediaCapture,
-    Camera
+    Camera,
+    Reviews
   ]
 })
 export class AppModule {}

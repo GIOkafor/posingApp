@@ -1,5 +1,21 @@
-page-home {
-	video#singleVideo{
-		width: 100.5%;
+.ios, .md{
+	page-home {
+		video#singleVideo{
+			width: 100.5%;
+		}
+
+		ion-item{
+			background-color: #fff;
+			border-bottom: none !important;
+		}
+
+		ion-label{
+			white-space: normal;
+		}
+
+		ion-item-sliding{
+			margin: 10px;
+		}
 	}
 }
+
