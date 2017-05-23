@@ -5,6 +5,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MediaCapture } from '@ionic-native/media-capture';
 import { Camera } from '@ionic-native/camera';
 import { MyApp } from './app.component';
+import { AuthProvider } from '../providers/auth';
 
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
@@ -58,6 +59,7 @@ import { Reviews } from '../providers/reviews';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     MediaCapture,
     Camera,
+    AuthProvider,
     Reviews
   ]
 })
